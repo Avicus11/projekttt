@@ -1,0 +1,175 @@
+<!doctype html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>Lažna Evrovizija</title>
+</head>
+
+
+<style>
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidenav {
+      padding-top: 15px;
+    }
+
+    .sidenav a {
+      font-size: 18px;
+    }
+  }
+
+  #footer {
+    position: fixed;
+    padding: 10px 10px 0px 10px;
+    bottom: 0;
+    width: 100%;
+    /* Height of the footer*/
+    height: 80px;
+    background: grey;
+  }
+
+  img {
+    display: block;
+    border-radius: 10px;
+    height: 45.7px;
+  }
+
+  b:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  b:active {
+    text-decoration: underline;
+  }
+</style>
+
+
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg"
+  style="background: repeating-linear-gradient(230deg,rgba(226, 227, 246, 0.5) 00.00%,rgba(11, 27, 246, 0.8) 100.00%)">
+  <!-- Container wrapper -->
+  <!-- Collapsible wrapper -->
+  <div class="collapse navbar-collapse" id="navbarButtonsExample" style="padding-right: 40px; padding-left: 10px;">
+    <!-- Left links -->
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      %if defined('uporabnik') and uporabnik!=None:
+      <button type="button" class="btn btn-outline-primary me-3" style="background-color: rgb(255, 255, 255)"
+        onclick="openNav()">
+        &#9776; <strong>Glasovanje</strong>
+      </button>
+      % end
+
+
+
+      %if defined('uporabnik') and uporabnik!=None and uporabnik.ime=='admin':
+      <li>
+        <button type="button" class="btn btn-outline-primary me-3" style="background-color: rgb(255, 255, 255)"
+          onclick="location.href='/administracija/'"><strong>Administracija</strong></button>
+      </li>
+      % end
+      <li>
+        <button type="button" class="btn btn-outline-primary me-3" style="background-color: rgb(255, 255, 255)"
+          onclick="location.href='/statistika/'"><strong>Statistika</strong></button>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" style="color:white" onclick="location.href='/'" style="font-size: 40"><b>Lažna
+            Evrovizija</b></a>
+      </li>
+
+    </ul>
+
+    <!-- Right links -->
+    <div class="d-flex align-items-center">
+      %if not(defined('uporabnik')) or uporabnik==None:
+      <button type="button" class="btn btn-outline-primary me-3" style="background-color:white"
+        onclick="location.href='/prijava/'">
+        Prijava
+      </button>
+      <button type="button" class="btn btn-primary me-3" onclick="location.href='/registracija/'">
+        Registracija
+      </button>
+      % else:
+      <div style="padding:10px">
+        <strong>{{uporabnik.ime}}</strong>
+      </div>
+      <a class="button is-danger" href="/odjava/">
+        <strong>Odjava</strong>
+      </a>
+      % end
+      </a>
+    </div>
+  </div>
+  <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  % if defined('evrovizije'):
+  % for e in evrovizije:
+  <a href="/glasovanje/{{e.hash}}/">{{e.ime}}</a>
+  % end
+  % end
+</div>
+
+<script>
+  function openNav() {
+    document.getElementById("mySidenav").style.width = "400px";
+  }
+
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
+</script>
+
+{{ !base }}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<footer id="footer" class="bg-light text-center text-lg-start">
+  <div class="text-center p-3" style="background-color: rgba(2, 117, 216, 0.3);">
+    © 2022 Jan Genc, najboljši avtor lažnih evrovizij!
+  </div>
+  <!-- Copyright -->
+</footer>
+
+</html>

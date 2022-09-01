@@ -1,0 +1,51 @@
+% rebase("osnova.html")
+<style>
+    .center {
+        text-align: left;
+        width: 1000px;
+        margin: 0 auto;
+        padding: 30px;
+    }
+</style>
+
+% for trenutna_evrovizija in evrovizije:
+<div class="center">
+    <h1>{{trenutna_evrovizija.ime}}</h1>
+    <br>
+    <table style="width:100%">
+        <col width="100px" />
+        <col width="200px" />
+        <col width="200px" />
+        <col width="200px" />
+        <col width="200px" />
+        <col width="400px" />
+        <col width="300px" />
+        
+        
+        <tr>
+            <th></th>
+            <th>Država</th>
+            <th>Žirija</th>
+            <th>Publika</th>
+            <th>Σ</th>
+            <th>Izvajalec</th>
+            <th>Naslov</th>
+            
+            
+        </tr>
+        % for drzava in trenutna_evrovizija.drzave_po_tockah:
+        <tr>
+            <td><img src="/static/img/{{drzava.zastava}}" style="width:43px;height:auto;" alt="bepis"></td>
+            <td>{{drzava.ime}}</td>
+            <td>{{drzava.tocke_zirantov}}</td>
+            <td>{{drzava.tocke_publike}}</td>
+            <td>{{drzava.tocke}}</td>
+            <td>{{drzava.izvajalec}}</td>
+            <td>{{drzava.pesem}}</td>
+            
+           
+        </tr>
+        %end
+    </table>
+</div>
+% end

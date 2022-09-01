@@ -1,0 +1,50 @@
+% rebase("osnova.html")
+
+<style>
+    .float-container {
+        border: 3px solid #fff;
+        padding: 100px;
+    }
+
+    .float-child {
+        width: 50%;
+        float: left;
+        padding: 20px;
+    }
+
+    img {
+        position: relative;
+        float: right;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+        }
+
+        70% {
+            transform: scale(1);
+            box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+        }
+
+        100% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        }
+    }
+</style>
+
+<div class="float-container">
+
+    <div class="float-child">
+        <img src="/static/img/b.jpg" style="width: 750px;0px;height:auto;" alt="bepis">
+    </div>
+
+    <div class="float-child">
+        <h1>Pozdravljen postopač<br> Sem Jan Genc in to je moja lažna evrovizija.</h1>
+
+    </div>
+
+</div>

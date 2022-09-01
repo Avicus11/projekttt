@@ -1,0 +1,42 @@
+% rebase("osnova.html")
+
+<section class="section">
+    <div class="container" style="width: 350px; max-width: 90%;">
+        <form method="POST">
+            <label for="fname">Uporabniško ime:</label><br>
+            <input type="text" id="uname" name="uname" value=""><br>
+            <label for="lname">Geslo:</label><br>
+            <input type="password" id="pass" name="pass" value=""><br><br>
+            <label for="lname">Ponovite geslo:</label><br>
+            <input type="password" id="pass_conf" name="pass_conf" value=""><br><br>
+
+            % if defined('error') and "manjka_ime" in error:
+            <div><a>
+                    Vnesite uporabniško ime!
+                </a></div>
+            % end
+            % if defined('error') and "manjka_geslo" in error:
+            <div><a>
+                    Znova vnesite geslo!
+                </a></div>
+
+            % end
+            % if defined('error') and "neenaki_gesli" in error:
+            <div><a>
+                    Gesli se ne ujemata!
+                </a></div>
+            % end
+            % if defined('error') and "slabo_geslo" in error:
+            <div><a>
+                    Geslo mora vsebovati vsaj 8 znakov
+                </a></div>
+            % end
+            % if defined('error') and "zaseden" in error:
+            <div><a>
+                    Uporabniško ime je zasedeno
+                </a></div>
+            % end
+            <input type="submit" value="Registracija">
+        </form>
+    </div>
+</section>

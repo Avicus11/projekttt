@@ -1,0 +1,52 @@
+% rebase("osnova.html")
+<div style="width: 100%; display: table;padding-top: 20px;">
+    <div style="display: table-row">
+        <div style="width: 800px; display: table-cell;">
+            <div class="container" style="width: 350px; max-width: 90%;">
+                <h2>Dodaj novo tekmovanje</h2>
+                <form method="POST">
+                    <label for="ime">Ime evrovizije:</label><br>
+                    <input type="text" id="ime_evrovizije" name="ime_evrovizije" value=""><br>
+                    %if defined('error') and "evrovizija" in error:
+                    <a>Izbrano ime evrovizije je že zabeleženo</a>
+                    %end
+                    %if defined('success') and "evrovizija" in success:
+                    <a>Evrovizija je bila uspešno dodana</a>
+                    %end
+                    <br>
+                    <input type="submit" class="btn btn-outline-primary me-3" action="nova_evrovizija"
+                        value="Dodaj evrovizijo">
+                </form>
+            </div>
+        </div>
+        % if len(evrovizije)!=0:
+        <div style="display: table-cell;">
+            <h2>Dodaj novega tekmovalca</h2>
+            <form method="POST">
+                <label for="lname">Evrovizija:</label>
+                <select id="evrovizija" name="evrovizija">
+                    % for e in evrovizije:
+                    <option value="{{e.ime}}">{{e.ime}}</option>
+                    % end
+                </select>
+                <br>
+                <label for="lname">Drzava:</label><br>
+                <input type="text" id="drzava" name="drzava" value=""><br>
+                <label for="lname">Izvajalec:</label><br>
+                <input type="text" id="izvajalec" name="izvajalec" value=""><br>
+                <label for="lname">Pesem:</label><br>
+                <input type="text" id="pesem" name="pesem" value=""><br>
+
+                %if defined('error') and "drzava" in error:
+                <a>Izbrana država je že zabeležena</a>
+                %end
+                %if defined('success') and "drzava" in success:
+                <a>Nastop je bil uspešno zabeležen</a>
+                %end
+                <br>
+                <input type="submit" class="btn btn-outline-primary me-3" action="nova_drzava" value="Dodaj nastop">
+            </form>
+        </div>
+        % end
+    </div>
+</div>

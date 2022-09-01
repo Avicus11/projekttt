@@ -1,0 +1,72 @@
+% rebase("osnova.html")
+<style>
+    span1 {
+    content: "\2705";
+    }
+    span2 {
+    content: "\274C";
+    }
+    .center{
+        text-align:left;
+        width: 1000px;
+        margin: 0 auto;
+    }
+</style>
+<div style="padding: 30px;" class="center">
+<h1>Glasovanje za tekmovanje {{trenutna_evrovizija.ime}}</h1>
+<br>
+% if uporabnik.preveri_dostop(trenutna_evrovizija.ime):
+    <table style="width:100%">
+        <tr>
+        <th>Država</th>
+        <th>Naslov</th>
+        <th>Izvajalec</th>
+        <th>Glasuj</th>
+        </tr>
+        % for drzava in trenutna_evrovizija.drzave:
+        <tr>
+            <td>{{drzava.ime}}</td>
+            <td>{{drzava.pesem}}</td>
+            <td>{{drzava.izvajalec}}</td>
+            <td>
+                <form method="POST" action="/glasovanje/{{trenutna_evrovizija.hash}}/">
+                    % a = uporabnik.obstaja_ocena(trenutna_evrovizija.ime, drzava.ime)
+                    %print(a)
+                    % if a==-1:
+                    <!--krizec-->
+                    <input type="range" min="0" max="12" value="0" class="drsnik" name="tocke_{{drzava.ime}}" oninput="this.nextElementSibling.value = this.value">
+                    <output>0</output>
+                    <span2>&#10060;</span2>
+                    <button type="submit"  >Vnesi</button>
+                    % else:
+                    <!--kljukica-->
+                    <input type="range" min="0" max="12" value="{{a}}" class="drsnik" name="tocke_{{drzava.ime}}" oninput="this.nextElementSibling.value = this.value; reset_icon_{{drzava.ime}}()">
+                    <output>{{a}}</output>
+                    <span1 id="icon_{{drzava.ime}}">&#9989;</span1>
+                    <button type="submit"id="tipka_{{drzava.ime}}" disabled>Vnesi</button>
+                    %end
+                    <input type="hidden" name="ime_drzave" value="{{drzava.ime}}" />
+                    <script>
+                        function reset_icon_{{drzava.ime}}() {
+                            console.log("serba")
+                            document.getElementById("icon_{{drzava.ime}}").innerHTML="&#10060;";
+                            document.getElementById("icon_{{drzava.ime}}").style.content='\274C';
+                            document.getElementById("tipka_{{drzava.ime}}").disabled=false;
+                        }
+                    </script>
+                    
+                </form>
+            </td>
+        </tr>
+        %end
+    </table>
+% else:
+    Pri tej evroviziji še niste prijavljeni
+    <div style="width: 30%; display: table;">
+        <div style="display: table-row; height: 100px;">
+                <button type="button" class="btn btn-outline-primary me-3" onclick="location.href='/glasovanje/{{trenutna_evrovizija.hash}}/prijava_ziranta'">Prijavi me kot žiranta</button>
+                <button type="button" class="btn btn-outline-primary me-3" onclick="location.href='/glasovanje/{{trenutna_evrovizija.hash}}/prijava_publike'">Prijavi me kot člana publike</button>
+        </div>
+    </div>
+% end
+</div>

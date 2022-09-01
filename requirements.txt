@@ -1,0 +1,2 @@
+bottle==0.12.23
+setuptools==61.3.1
